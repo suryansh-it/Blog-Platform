@@ -3,7 +3,7 @@ from django.http import HttpResponse , HttpResponseNotFound , HttpResponseRedire
 from django.urls import reverse
 
 posts =[]
-def home(request):
+def home(request):  #parameter = request
     html = ""
     for post in posts :
         html += f'''
@@ -13,7 +13,7 @@ def home(request):
                     <p>{post['content']}</p>
                     </div>'''
 
-    return HttpResponse(html)
+    return render(request , "app/home.html")  #should be same as parameter
 
 def post(request,id):
     valid_id = False
@@ -31,6 +31,6 @@ def post(request,id):
     
 
 def something(request, id):
-    url = reverse("post" , args=[id])
+    url = reverse("post" , args=[id]) #url name and id as argument
     return HttpResponseRedirect(url)
 # Create your views here.
