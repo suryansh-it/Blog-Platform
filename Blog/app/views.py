@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse , HttpResponseNotFound , HttpResponseRedirect
+from django.urls import reverse
 
 posts =[]
 def home(request):
@@ -15,12 +16,21 @@ def home(request):
     return HttpResponse(html)
 
 def post(request,id):
+    valid_id = False
     for post in posts:
         if post['id'] == id:
-            post_dict = post  
+            post_dict = post
+            valid_id = True  
             break  
+    if valid_id:
+        html = f'''<h1>{post_dict['title']}</h1>
+                <p>{post_dict['content']}</p>'''
+        return HttpResponse(html)
+    else :
+        return HttpResponseNotFound("Post not Avilable")
     
-    html = f'''<h1>{post_dict['title']}</h1>
-               <p>{post_dict['content']}</p>'''
-    return HttpResponse(html)
+
+def something(request, id):
+    url = reverse("post" , args=[id])
+    return HttpResponseRedirect(url)
 # Create your views here.
