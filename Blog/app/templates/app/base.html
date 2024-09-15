@@ -8,7 +8,9 @@
   </head>
   <body>
     <a href="{% url 'home' %}">Home Page</a>
-    {%block body%} {%endblock body%}
+    {%block categories%} {%for category in categories%}
+    <li><a class="dropdown-item" href="#">{{category}}</a></li>
+    {%endfor%} {%endblock categories%} {%block body%} {%endblock body%}
 
     <footer>Footer</footer>
   </body>

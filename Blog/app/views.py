@@ -3,11 +3,7 @@ from django.http import  Http404
 # from django.urls import reverse
 
 posts =[]
-categories = [
-    "Programming",
-    "Food",
-    "Travel"
-]
+
 def home(request):  #parameter = request
     html = ""
     for post in posts :
@@ -18,7 +14,7 @@ def home(request):  #parameter = request
                     <p>{post['content']}</p>
                     </div>'''
 
-    return render(request , "app/home.html", {'posts': posts , 'categories' : categories})  #should be same as parameter
+    return render(request , "app/home.html", {'posts': posts })  #should be same as parameter
 
 def post(request,id):
     valid_id = False
@@ -29,7 +25,7 @@ def post(request,id):
             break  
     if valid_id:
         
-        return render(request , "app/post.html", {'post_dict' : post, 'categories' : categories})
+        return render(request , "app/post.html", {'post_dict' : post})
     else :
         raise Http404()
     
