@@ -23,9 +23,8 @@ def post(request,id):
             valid_id = True  
             break  
     if valid_id:
-        html = f'''<h1>{post_dict['title']}</h1>
-                <p>{post_dict['content']}</p>'''
-        return HttpResponse(html)
+        
+        return render(request , "app/post.html", {'post_dict' : post})
     else :
         return HttpResponseNotFound("Post not Avilable")
     
