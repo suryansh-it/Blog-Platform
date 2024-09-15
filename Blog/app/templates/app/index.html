@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+<!--  {%load static%}{% block css %}
+
+<link rel="stylesheet" href="{% static 'app/home.css'%}" />
+
+{% endblock css %} -->
+{% block body %} {%block categories%} {%for category in categories%}
+<li><a class="dropdown-item" href="#">{{category}}</a></li>
+{%endfor%} {%endblock categories%}{%endblock body%}
