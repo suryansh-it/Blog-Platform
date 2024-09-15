@@ -6,6 +6,11 @@
     <title>Document</title>
   </head>
   <body>
-    <p>home</p>
+    {%for post in posts%}
+    <a href=""><h1>{{forloop.counter}} - {{post.title}}</h1></a>
+    <p>{{post.content}}</p>
+    {% empty %}
+    <h1>No Posts</h1>
+    {%endfor%}
   </body>
 </html>
