@@ -13,7 +13,7 @@ def home(request):  #parameter = request
                     <p>{post['content']}</p>
                     </div>'''
 
-    return render(request , "app/home.html", {'posts': posts})  #should be same as parameter
+    return render(request , "app/home.html", {'posts': posts , 'username' : 'suryansh'})  #should be same as parameter
 
 def post(request,id):
     valid_id = False
