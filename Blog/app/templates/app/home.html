@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>{{username}}</h1>
-    {%for post in posts%}
-    <a href="/app/post.id"><h1>{{forloop.counter}} - {{post.title}}</h1></a>
-    <p>{{post.content}}</p>
-    {% empty %}
-    <h1>No Posts</h1>
-    {%endfor%}
-  </body>
-</html>
+{% extends "base.html" %} {% block body %}
+<h1>{{username}}</h1>
+{%for post in posts%}
+
+<!-- post.id used as it is required in url -->
+<a href="{%url 'post' post.id %}"
+  ><h1>{{forloop.counter}} - {{post.title}}</h1></a
+>
+<p>{{post.content}}</p>
+{% empty %}
+<h1>No Posts</h1>
+{%endfor%} {%endblock body%}
