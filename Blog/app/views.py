@@ -1,36 +1,18 @@
-from django.shortcuts import render
-from django.http import  Http404
-# from django.urls import reverse
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
 
-posts =[]
 
-def home(request):  #parameter = request
-    html = ""
-    for post in posts :
-        html += f'''
-                    <div>
-                    <a href= "/post/{post['id']}/">
-                    <h1>{post['id']} - {post['title']}</h1></a>
-                    <p>{post['content']}</p>
-                    </div>'''
 
-    return render(request , "app/home.html", {'posts': posts })  #should be same as parameter
+# user registration view
 
-def post(request,id):
-    valid_id = False
-    for post in posts:
-        if post['id'] == id:
-            post_dict = post
-            valid_id = True  
-            break  
-    if valid_id:
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
         
-        return render(request , "app/post.html", {'post_dict' : post})
     else :
-        raise Http404()
-    
-
-# def something(request, id):
-#     url = reverse("post" , args=[id]) #url name and id as argument
-#     return HttpResponseRedirect(url)
-# Create your views here.
+        form = UserCreationForm()
+    return render(request , "registration/signup.html",{"form": form})
