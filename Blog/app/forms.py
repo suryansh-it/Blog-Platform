@@ -6,7 +6,7 @@ from .models import Posts, Comment
 class PostForm(forms.ModelForm):
     class Meta:
         model = Posts
-        fields = ['title' , 'content '] 
+        fields = ['title' , 'content'] 
 
 class CommentForm(forms.ModelForm):
     class Meta:

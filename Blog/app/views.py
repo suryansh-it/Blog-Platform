@@ -3,7 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Posts , Comment
 from .forms import PostForm , CommentForm 
+from django.shortcuts import render
 
+def homepage_view(request):
+    return render(request, 'app/homepage.html')  # Render a template for homepage
 
 
 # user registration view
