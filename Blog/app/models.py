@@ -12,3 +12,13 @@ class Posts(models.Model):
 
     def __str__(self) :
         return self.title  #return title when the obj is printed
+    
+
+class Comment(models.Model):
+    post = models.ForeignKey(Posts , related_name="comments" , on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    dated = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) :
+        return f"Comment by {self.author} on {self.post}"
