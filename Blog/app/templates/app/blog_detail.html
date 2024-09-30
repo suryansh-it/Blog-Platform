@@ -1,20 +1,27 @@
 <h1>{{ post.title }}</h1>
 <p>{{ post.content }}</p>
-<p>By {{ post.author }} on {{ post.created_at }}</p>
+<p>By {{ post.author }} on {{ post.dated }}</p>
 
 <h2>Comments</h2>
 <ul>
   {% for comment in comments %}
-  <li>
-    {{ comment.author }}: {{ comment.content }} ({{ comment.created_at }})
-  </li>
+  <li>{{ comment.author }}: {{ comment.content }} ({{ comment.dated }})</li>
   {% empty %}
+  <!-- This is a special template tag that handles the case when there are no comments. -->
+
   <li>No comments yet.</li>
   {% endfor %}
 </ul>
 
 <h3>Add a Comment</h3>
 <form method="post">
-  {% csrf_token %} {{ form.as_p }}
+  <!-- This is a Django-specific template tag that ensures protection against Cross-Site Request Forgery (CSRF) attacks. -->
+  <!-- When using a POST request in Django, must include a csrf_token to make sure the request is secure. Django will reject POST requests without this token. -->
+  {% csrf_token %}
+
+  <!-- This renders the comment form that was passed to the template as a Django form.
+form.as_p renders the form fields as HTML paragraph (<p>) tags, making it easy to style and display -->
+  {{ form.as_p }}
+
   <button type="submit">Add Comment</button>
 </form>
