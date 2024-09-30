@@ -1,7 +1,0 @@
-{% extends "base.html" %} {%load static%}{% block css %}
-<link rel="stylesheet" href="{% static 'app/post.css'%}" />
-{% endblock css %} {%block title%}Post.html{% endblock title %} {% block body %}
-
-<h1>{{post_dict.title}}</h1>
-<p>{{post_dict.content}}</p>
-{%endblock body%}
