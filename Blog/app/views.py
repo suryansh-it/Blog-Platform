@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Posts , Comment
@@ -25,4 +25,33 @@ def signup(request):
 
 def post_list(request):
     posts = Posts.objects.all().order_by("-dated")
-    return render(request, "post_list.html" ,{'posts':posts})
+
+    #render(request, template_name, context=None, content_type=None, status=None, using=None)
+
+    return render(request, "post_list.html" ,{'posts':posts}) #context dictionary where keys represent the variable names that will be accessible inside the template
+
+
+# View for blog post details (and adding comments)
+    
+def blog_detail(request, pk):
+    post = get_object_or_404(Posts, pk=pk) #fetches a single blog post from the database using its primary key (pk)
+    comments = post.comments.all() #retrieves all comments associated with the retrieved blog post (post)
+    #assumes there's a ForeignKey relationship between the Comment model and the Posts model
+    #related_name='comments' allows you to access the comments
+
+    if request.method == "POST":
+        form =CommentForm(request.POST) #A CommentForm is created using the data submitted by the user (request.POST).
+        if form.is_valid():
+            comment = form.save(commit=False)
+            #commit=False allows you to modify the comment before saving it to the database,
+            #which is useful when you need to add extra fields (like the post and author).
+
+            comment.post = post
+            comment.author= request.user
+            comment.save()
+            return redirect("blog_detail" , pk =post.pk)
+        
+    else:
+        form = CommentForm()
+    return render(request ,'blog_detail.html', {'post': post, 'comments': comments, 'form': form} )
+
