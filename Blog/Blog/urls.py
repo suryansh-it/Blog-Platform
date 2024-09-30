@@ -23,7 +23,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app/' , include('app.urls')),# Include the app's URLs
+    path('' , include('app.urls')),# Include the app's URLs
     path('', views.homepage_view, name='home'),  # Root URL, points to homepage
 ]
 
