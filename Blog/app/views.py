@@ -31,6 +31,26 @@ def post_list(request):
     return render(request, "post_list.html" ,{'posts':posts}) #context dictionary where keys represent the variable names that will be accessible inside the template
 
 
+
+# View for creating a new blog post
+@login_required
+def create_post(request):
+    if request.method == "POST":
+        form  = PostForm(request.POST)
+        if form.is_valid():
+            blog = form.save(commit=False)
+            blog.author = request.user
+            blog.save()
+            
+            return redirect('post_list')
+        
+    else :
+        form = PostForm()
+    
+    return render(request , "create_blog.html", {'form': form})
+
+
+
 # View for blog post details (and adding comments)
     
 def blog_detail(request, pk):
