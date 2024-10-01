@@ -78,3 +78,15 @@ def blog_detail(request, pk):
         form = CommentForm()
     return render(request ,'blog_detail.html', {'post': post, 'comments': comments, 'form': form} )
 
+
+
+
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')
+    else:
+        form = PostForm()
+    return render(request, 'create_post.html', {'form': form})
