@@ -1,3 +1,6 @@
+{% extends "base.html" %} {% block title %}BLog Details{% endblock %} {% block
+content %}
+
 <h1>{{ post.title }}</h1>
 <p>{{ post.content }}</p>
 <p>By {{ post.author }} on {{ post.dated }}</p>
@@ -25,3 +28,4 @@ form.as_p renders the form fields as HTML paragraph (<p>) tags, making it easy t
 
   <button type="submit">Add Comment</button>
 </form>
+{%endblock%}
