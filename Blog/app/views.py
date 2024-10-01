@@ -42,7 +42,7 @@ def create_post(request):
         form  = PostForm(request.POST)
         if form.is_valid():
             blog = form.save(commit=False)
-            blog.author = request.user
+            blog.author = request.user # Assign the logged-in user as the author
             blog.save()
             
             return redirect('post_list')
@@ -50,7 +50,7 @@ def create_post(request):
     else :
         form = PostForm()
     
-    return render(request , "create_blog.html", {'form': form})
+    return render(request , "create_post.html", {'form': form})
 
 
 
@@ -80,13 +80,3 @@ def blog_detail(request, pk):
 
 
 
-
-def create_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('post_list')
-    else:
-        form = PostForm()
-    return render(request, 'create_post.html', {'form': form})

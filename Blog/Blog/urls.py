@@ -28,7 +28,7 @@ urlpatterns = [
     path('posts/', views.post_list, name='post_list'),  # Post list page
     path('accounts/signup/', views.signup, name='signup'),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
-    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     
 ]
 
