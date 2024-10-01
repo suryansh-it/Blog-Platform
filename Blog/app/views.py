@@ -6,7 +6,7 @@ from .forms import PostForm , CommentForm
 from django.shortcuts import render
 
 def homepage_view(request):
-    return render(request, 'app/homepage.html')  # Render a template for homepage
+    return render(request, 'homepage.html')  # Render a template for homepage
 
 
 # user registration view
